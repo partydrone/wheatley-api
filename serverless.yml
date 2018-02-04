@@ -25,25 +25,48 @@ plugins:
   - serverless-azure-functions
 
 # you can add packaging information here
-#package:
+package:
 #  include:
 #    - include-me.js
 #    - include-me-dir/**
-#  exclude:
+  exclude:
 #    - exclude-me.js
 #    - exclude-me-dir/**
+    - .git/**
+    - .gitattributes
+    - .gitignore
+    - LICENSE
+    - node_modules/**
+    - package.json
+    - README.md
 
 functions:
-  hello:
-    handler: handler.hello
+  # hello:
+  #   handler: handler.hello
+  #   events:
+  #     - http: true
+  #       x-azure-settings:
+  #         authLevel : anonymous
+  #     - http: true
+  #       x-azure-settings:
+  #         direction: out
+  #         name: res
+
+  run:
+    handler: handler.run
     events:
       - http: true
         x-azure-settings:
-          authLevel : anonymous
+          name: request
+          methods:
+            - GET
+            - POST
+          # route: graphql
+          authLevel: anonymous
       - http: true
         x-azure-settings:
           direction: out
-          name: res
+          name: response
 
 # The following are a few examples of other events you can configure:
 #
